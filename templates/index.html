@@ -28,13 +28,6 @@
                  <div class="m-2-2">
                    <input type="password" name="password" id="password" placeholder="Password"/>
                  </div>
-                
-
-
-                <!-- <div class="m-2-2-1">
-                   <input type="text" placeholder="Identifier"/>
-                   <img src="assets/images/1.png"/>
-                </div> -->
                 <div class="m-2-2">
 
                     <button type="submit" id="login-button">Enter</button>
@@ -103,19 +96,17 @@
         var txtpsw = $("#password").val();
 
         $.ajax({
-            {#url:  "/py_login",可以#}
-            url:"{{url_for("py_login") }}",{# 可以调到后台，路由名称#}
-            {#data: "username=" + txtname + "&password=" + txtpsw,#}
+            url:"/py_login",
             data:{"username":txtname,"userpswd":txtpsw},
             type: 'GET',
-            contentType: 'json',{#'application/x-www-form-urlencoded',#}
+            contentType: 'json',
             async: false,
             success: function (d) {
                 alert(d)
                 var status = d.status;
                 if (d != "undefined" && d=="SUCCESS!")
                 {
-                     window.location.href="/index1";{# 这里链接的应该是路由中的名称#}
+                     window.location.href="/index1";
                 }
 
             }
