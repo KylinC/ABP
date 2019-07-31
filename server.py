@@ -31,11 +31,11 @@ def py_login():
             print(url_for('/demo1'))
             # return redirect(url_for('/testhtm'))
         else:
-            return "enterfailed"
+            return "FAIL!"
 
-@app.route('/demo1') #页面链接该路由名称
-def f_infor():
-    return render_template('demo1.html')
+# @app.route('/demo1') #页面链接该路由名称
+# def f_infor():
+#     return render_template('demo1.html')
 
 from demo import demo1
 app.register_blueprint(demo1.mod1)
