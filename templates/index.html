@@ -16,14 +16,20 @@
 	<div class="box-a">
     <div class="m-2">
           <div class="m-2-1">
-            <form action="#" method="post">
+
+              <form class="form" method="post" action="" onsubmit="return Login();">
+
                 <br/>
-                <div class="m-2-2">
-                   <input type="text" placeholder="Account" />
-                </div>
-                <div class="m-2-2">
-                   <input type="password" placeholder="Password"/>
-                </div>
+				
+                 <div class="m-2-2"> 
+                   <input type="text" name="username" id="username" placeholder="Account"/>
+				 </div>  
+              
+                 <div class="m-2-2">
+                   <input type="password" name="password" id="password" placeholder="Password"/>
+                 </div>
+                
+
                 <div>
                     <a href = 'http://127.0.0.1:5000/demo1'>demo1</a>
                     <a href = 'http://127.0.0.1:5000/demo2'>demo2</a>
@@ -33,10 +39,12 @@
                    <img src="assets/images/1.png"/>
                 </div> -->
                 <div class="m-2-2">
-                   <button type="submit" value="enter" /> Enter
+
+                    <button type="submit" id="login-button">Enter</button>
+
                 </div>
                     
-            </form>
+               </form>
           </div>
     </div>
     <div class="m-5"> 
@@ -91,4 +99,35 @@
         <p style="color: white;">Copyright &copy;<script>document.write(new Date().getFullYear());</script>  KylinChen</p>
 </div>
 </body>
+<script type="text/javascript">
+    function Login() {
+        var login = false;
+        var  txtname = $("#username").val();
+        var txtpsw = $("#password").val();
+
+        $.ajax({
+            {#url:  "/py_login",可以#}
+            url:"{{url_for("py_login") }}",{# 可以调到后台，路由名称#}
+            {#data: "username=" + txtname + "&password=" + txtpsw,#}
+            data:{"username":txtname,"userpswd":txtpsw},
+            type: 'GET',
+            contentType: 'json',{#'application/x-www-form-urlencoded',#}
+            async: false,
+            success: function (d) {
+                alert(d)
+                var status = d.status;
+                if (d != "undefined" && d=="SUCCESS!")
+                {
+                     window.location.href="/demo1";{# 这里链接的应该是路由中的名称#}
+                }
+                else
+                {
+                    
+                }
+            }
+        });
+        return login;
+    }
+</script>
+
 </html>
