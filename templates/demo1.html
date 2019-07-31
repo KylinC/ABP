@@ -1,8 +1,106 @@
-<!doctype html>
-<html>
-<body>
+<!DOCTYPE html>
+<html lang="zh-CN">
 
-<h1>Demo1</h1>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ATC-Platform</title>
+
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        .t_btn {
+            margin-top: 50px;
+        }
+
+        .t_btn li {
+            display: inline-block;
+            margin: 0 0px 40px 60px;
+        }
+
+        .t_btn button,
+        .t_a {
+            display: inline-block;
+            padding: 10px 5px;
+            width: 80px;
+            border-style: solid;
+            border-width: 0;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            line-height: normal;
+            margin: 0 0 0.5em 0;
+            position: relative;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            font-size: 1em;
+            background-color: #2C58A6;
+            border-color: #0263ff;
+            color: white;
+            box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.2) inset !important;
+            margin-right: 0.5em;
+            border-radius: 4px;
+        }
+
+        .t_height {
+            line-height: 80px;
+            position: absolute;
+            right: 28px;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        <div class="bg_header">
+            <div class="header_nav fl t_title">
+                Data-Platform
+            </div> 
+        </div>
+        <div class="header_nav fl">
+        </div>
+        <div class="header_myself fr t_height">
+            <a class="t_a" href="new1.html"> More &nbsp;</a>
+        </div>
+    </div>
+
+    <!--main-->
+    <div class="data_content">
+        <div class="wrapper">
+			<div class="container-fluid">
+				<div class="row fill-h">
+					<div class="col-lg-7 fill-h">
+						<div class="xpanel-wrapper xpanel-wrapper-1">
+							<div class="xpanel">
+								<div class="fill-h" id="bmapChart"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-5 fill-h">
+						<div class="xpanel-wrapper xpanel-wrapper-2">
+							<div class="xpanel">
+								<div class="fill-h" id="heatmapChart"></div>
+							</div>
+						</div>
+						<div class="xpanel-wrapper xpanel-wrapper-2">
+							<div class="xpanel">
+								<div class="fill-h" id="coordChart"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <div style="text-align:center;">
+        <p style="color: white;">Copyright &copy;<script>document.write(new Date().getFullYear());</script>  KylinChen</p>
+    </div>
 
 </body>
+
 </html>
