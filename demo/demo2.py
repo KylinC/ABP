@@ -7,6 +7,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 import json
 
 mod2 = Blueprint('demo2', __name__)
+
 @mod2.route("/demo2")
 def home2():
     return render_template('demo2.html')
