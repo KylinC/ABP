@@ -17,7 +17,7 @@ def home1():
 @mod1.route("/demo1/graphdata")
 def get_graph_data():
     with driver.session() as session:
-        results=session.run('MATCH (p1)-[r1]->(p2{title:"The Matrix Reloaded"}) RETURN p1,p2,r1').values()
+        results=session.run('MATCH (p1)-[r1]->(p2) RETURN p1,p2,r1').values()
         nodeList=[]
         edgeList=[]
         for result in results:
@@ -31,11 +31,9 @@ def get_graph_data():
         edges= list(map(buildEdges,edgeList))
         # nodes = list(map(buildNodes,session.run("MATCH (n) RETURN n").value()))
         # edges= list(map(buildEdges,session.run("MATCH ()-[r]->() RETURN r").value()))
-    print(results)
+    # print(results)
     # print(nodes)
     # print(edges)
     json_data = json.dumps({"nodes": nodes, "edges": edges})
-
     callback = request.args.get('callback')
     return Response('{}({})'.format(callback, json_data))
-    pass

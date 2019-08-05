@@ -1,318 +1,65 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<title>ATC Data-Platform</title>
+		<link rel="stylesheet" href="static/css/bootstrap.css" />
+		<link rel="stylesheet" href="static/css/demo1_style.css" />
+        <link rel="stylesheet" href="static/css/demo1_base.css" />
+        <script type="text/javascript" src="static/js/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="static/js/echarts.min.js"></script>
+        <script type="text/javascript" src="static/js/KGdemo.js"></script>
+    </head>
+    <body>
+			<div class="bg_header">
+				<div class="header_nav fl t_title">
+					Data-Platform
+				</div> 
+			</div>
+			<div class="header_nav fl">
+			</div>
+			<div class="header_myself fr t_height">
+				<a class="t_a" href="new1.html"> More &nbsp;</a>
+			</div>
+		</div>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data-Platform</title>
+		<div class="wrapper">
+			<div class="container-fluid">
+				<div class="row fill-h">
+					<div class="col-lg-7 fill-h">
+						<div class="xpanel-wrapper xpanel-wrapper-1">
+							<div class="xpanel">
+								<div class="fill-h" id="graph_1"></div>
+							</div>
+						</div>
+					</div>
+					<div id="chart_22" style="width:100%;height:610px;"></div>
+					<div class="col-lg-5 fill-h">
+						<div class="xpanel-wrapper-4-1 xpanel-wrapper-2">
+							<div class="xpanel">
+								<div class="fill-h" id="graph_2">b</div>
+							</div>
+						</div>
+						<div class="xpanel-wrapper-4 xpanel-wrapper-2">
+							<div class="xpanel">
+								<div class="fill-h" id="graph_3">c</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    <footer id="footer">
+       <div align="center">
+          <input  style="width: 800px;height:40px" class="input" type="text" placeholder="请输入流控报文">
+	      <button type="submit" id="login-button">Enter</button>
+       </div>
+    </footer>
 
-    <link href="../static/css/style.css" rel="stylesheet" />
-    <script src="../static/js/jquery.js"></script>
-    <script src="../static/js/echarts.min.js"></script>
-    <script type="text/javascript" src="../static/js/china.js"></script>
+		
 
-    <link rel="stylesheet" href="../static/css/bootstrap.css">
-    <link rel="stylesheet" href="../static/css/base.css">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <style>
-        .t_btn {
-            margin-top: 50px;
-        }
-
-        .t_btn li {
-            display: inline-block;
-            margin: 0 0px 40px 60px;
-        }
-
-        .t_btn button,
-        .t_a {
-            display: inline-block;
-            padding: 10px 5px;
-            width: 80px;
-            border-style: solid;
-            border-width: 0;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: bold;
-            line-height: normal;
-            margin: 0 0 0.5em 0;
-            position: relative;
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-            font-size: 1em;
-            background-color: #2C58A6;
-            border-color: #0263ff;
-            color: white;
-            box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.2) inset !important;
-            margin-right: 0.5em;
-            border-radius: 4px;
-        }
-
-        .t_height {
-            line-height: 80px;
-            position: absolute;
-            right: 28px;
-            top: 0;
-        }
-    </style>
-</head>
-
-<body>
-    <!--header-->
-    <div class="header">
-        <div class="bg_header">
-            <div class="header_nav fl t_title">
-                Data-Platform
-            </div> 
-        </div>
-        <div class="header_nav fl">
-        </div>
-        <div class="header_myself fr t_height">
-            <a class="t_a" href="new1.html"> More &nbsp;</a>
-        </div>
-    </div>
-    <!--main-->
-    <div class="data_content">
-        <div class="data_main">
-            <div class="main_left fl">
-                <div class="left_1">
-                    <ul class="t_btn">
-                        <li>
-                                <button class="t_btn0">Origi</button>
-                        </li>
-                        <li>
-                                <button class="t_btn0">Desti</button>
-                        </li>
-                    <br/>
-                        <li>
-                                <select id="origin">
-                                        <option value=20 align="center"> ALL </option>
-                                        <option value=0 align="center"> 鄂尔多斯 </option>
-                                        <option value=1 align="center"> 武汉 </option>
-                                        <option value=2 align="center"> 昆明 </option>
-                                        <option value=3 align="center"> 重庆 </option>
-                                        <option value=4 align="center"> 深圳 </option>
-                                        <option value=5 align="center"> 上海 </option>
-                                        <option value=6 align="center"> 贵阳 </option>
-                                        <option value=7 align="center"> 北京 </option>
-                                        <option value=8 align="center"> 衢州 </option>
-                                        <option value=9 align="center"> 廊坊 </option>
-                                        <option value=10 align="center"> 菏泽 </option>
-                                        <option value=11 align="center"> 攀枝花 </option>
-                                        <option value=12 align="center"> 威海 </option>
-                                        <option value=13 align="center"> 承德 </option>
-                                        <option value=14 align="center"> 厦门 </option>
-                                        <option value=15 align="center"> 张家界 </option>
-                                        <option value=16 align="center"> 宜兴 </option>
-                                        <option value=17 align="center"> 北海 </option>
-                                        <option value=18 align="center"> 西安 </option>
-                                        <option value=19 align="center"> 长春 </option>
-                                </select>
-                        </li>
-                        <li>
-                                <select id="destination">
-                                        <option value=20 align="center"> ALL </option>
-                                        <option value=0 align="center"> 鄂尔多斯 </option>
-                                        <option value=1 align="center"> 武汉 </option>
-                                        <option value=2 align="center"> 昆明 </option>
-                                        <option value=3 align="center"> 重庆 </option>
-                                        <option value=4 align="center"> 深圳 </option>
-                                        <option value=5 align="center"> 上海 </option>
-                                        <option value=6 align="center"> 贵阳 </option>
-                                        <option value=7 align="center"> 北京 </option>
-                                        <option value=8 align="center"> 衢州 </option>
-                                        <option value=9 align="center"> 廊坊 </option>
-                                        <option value=10 align="center"> 菏泽 </option>
-                                        <option value=11 align="center"> 攀枝花 </option>
-                                        <option value=12 align="center"> 威海 </option>
-                                        <option value=13 align="center"> 承德 </option>
-                                        <option value=14 align="center"> 厦门 </option>
-                                        <option value=15 align="center"> 张家界 </option>
-                                        <option value=16 align="center"> 宜兴 </option>
-                                        <option value=17 align="center"> 北海 </option>
-                                        <option value=18 align="center"> 西安 </option>
-                                        <option value=19 align="center"> 长春 </option>
-                                </select>
-                        </li>
-                        
-                        <br/>
-                        <br/>
-                        <li>
-                            <input id = 'param1' type='text' placeholder="Parameter1"> 
-                            <br/><br/>
-                            <input id = 'param2' type='text' placeholder="Parameter2"> 
-                            <br/><br/>
-                            <input id = 'param3' type='text' placeholder="Parameter3"> 
-                            <br/><br/>
-                            <input id = 'param4' type='text' placeholder="Parameter4"> 
-                        </li>
-                            
-                        <li>
-                            <button onclick="update()">Update</button>
-                        </li>
-                        <br/>
-                        <li>
-                                <select id="value1">
-                                        <option value=0 align="center"> Sample1 </option>
-                                        <option value=1 align="center"> Sample2 </option>
-                                        <option value=2 align="center"> Sample3 </option>
-                                        <option value=3 align="center"> Sample4 </option>
-                                        <option value=4 align="center"> Sample5 </option>
-                                        <option value=5 align="center"> Sample6 </option>
-                                        <option value=6 align="center"> Sample7 </option>
-                                        <option value=7 align="center"> Sample8 </option>
-                                        <option value=8 align="center"> Sample9 </option>
-                                        <option value=9 align="center"> Sample10 </option>
-                                        <option value=10 align="center"> Sample11 </option>
-                                        <option value=11 align="center"> Sample12 </option>
-                                        <option value=12 align="center"> Sample13 </option>
-                                        <option value=13 align="center"> Sample14 </option>
-                                        <option value=14 align="center"> Sample15 </option>
-                                        <option value=15 align="center"> Sample16 </option>
-                                        <option value=16 align="center"> Sample17 </option>
-                                        <option value=17 align="center"> Sample18 </option>
-                                </select>
-                        </li>
-                    </ul>
-                </div>
-                
-            </div>
-            <div class="main_center fl">
-                <div class="center_text t_cos0">
-                    <!--左上边框-->
-                    <div class="t_line_box">
-                        <i class="t_l_line"></i> 
-                        <i class="l_t_line"></i> 
-                    </div> 
-                    <!--右上边框-->
-                    <div class="t_line_box">
-                        <i class="t_r_line"></i> 
-                        <i class="r_t_line"></i> 
-                    </div> 
-                    <!--左下边框-->
-                    <div class="t_line_box">
-                        <i class="l_b_line"></i> 
-                        <i class="b_l_line"></i> 
-                    </div> 
-                        <!--右下边框-->
-                        <div class="t_line_box">
-                        <i class="r_b_line"></i> 
-                        <i class="b_r_line"></i> 
-                    </div> 
-                    <div class="main_title">
-                         Visualization
-                    </div>
-                    <div id="graph1" style="width:100%;height:590px;"></div>
-                </div> 
-            </div>
-        </div>
-    </div>
-<div style="text-align:center;">
-	<p style="color: white;">Copyright &copy;<script>document.write(new Date().getFullYear());</script>  KylinChen</p>
-</div>
-    <script type="text/javascript">
-        function relationshipGraph(graph) {
-            var myChart = echarts.init(document.getElementById('graph1'));
-            var categories = [];
-            categories[0] = {name: 'Movie'};
-            categories[1] = {name: 'Person'};
-            
-            var option = {
-                title: {
-                    text: 'Les Miserables',
-                    subtext: 'Default layout',
-                    top: 'bottom',
-                    left: 'right'
-                },
-                tooltip: {
-                    formatter: function(param){
-                        if(param.dataType === 'edge'){
-                            return param.data.relationship;
-                        }
-                        else{
-                            if(param.data.name != undefined){
-                                return param.data.name;
-                            }
-                            else{
-                                return param.data.title
-                            }
-                        }    
-                        
-                    }
-                },
-                toolbox: {
-                    show : true,//是否显示工具箱
-                    feature : {
-                        magicType: ['line', 'bar'], // 图表类型切换，当前仅支持直角系下的折线图、柱状图转换，上图icon左数6/7，分别是切换折线图，切换柱形图
-                        restore: true, // 还原，复位原始图表，
-                        saveAsImage: true  // 保存为图片，
-                    }
-                },
-
-                legend: [{
-                    // selectedMode: 'single',
-                    type: 'scroll',
-                    orient: 'vertical',
-                    right: 10,
-                    top: 20,
-                    bottom: 20,
-                    data: categories.map(function (a) {
-                        return a.name;
-                    })
-                }],
-                label: {//图形上的文本标签，可用于说明图形的一些数据信息
-                    normal: {
-                        show : true,//显示
-                        position: 'right',//相对于节点标签的位置，默认在节点中间
-                        //回调函数，你期望节点标签上显示什么
-                        formatter: function(params){
-                            return params.data.label;
-                        },
-                    }
-                },
-                animation: false,
-                series : [
-                    {
-                        name: 'Les Miserables',
-                        type: 'graph',
-                        layout: 'force',
-                        data: graph.nodes,
-                        links: graph.edges,
-                        categories: categories,
-                        roam: true,
-                        draggable: true,
-                        focusNodeAdjacency: true,
-
-                        label: {
-                            normal: {
-                                position: 'right',
-                                formatter: function(params){
-                                    return params.data.name;
-                                }
-                            }
-                        },
-                        force: {
-                            repulsion: 100
-                        }
-                    }
-                ]
-            };
-            myChart.setOption(option);
-        }
-
-        $.ajax({
-            type: 'get',
-            url: 'http://127.0.0.1:5000/demo1/graphdata',
-            dataType: "jsonp",  
-            success: function (res) {
-                relationshipGraph(res);
-            },
-            error: function (msg) {
-                console.log(msg);
-            }
-        });
-    </script>
-</body>
+	</body>
 </html>
