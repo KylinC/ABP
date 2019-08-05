@@ -14,7 +14,8 @@ def buildNodes(nodeRecord): #构建web显示节点
  
  
 def buildEdges(relationRecord): #构建web显示边
-    data = {"source": relationRecord.start_node._id,
+    data = {"id":relationRecord._id,
+            "source": relationRecord.start_node._id,
             "target":relationRecord.end_node._id,
-            "relationship": relationRecord.type}
+            "name": relationRecord.type}
     return data
