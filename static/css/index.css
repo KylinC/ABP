@@ -120,6 +120,37 @@
 .data_content .data_main .main_left div.left_1{
     /*background: url("../img/chart_1.png") no-repeat center;*/
 }
+.data_content .data_main .main_left div.left_1 input{
+
+	width:300px;
+	height:40px;
+	background:transparent;
+	outline:none;
+	color:white;
+	text-align: center;
+	border:3px solid #0095ff;
+	border-radius:20px;
+	font-size: 16px;
+	letter-spacing: 1px;
+
+    /*background: url("../img/chart_1.png") no-repeat center;*/
+}
+.data_content .data_main .main_left div.left_1 button{
+
+	width:300px;
+	height:40px;
+	background:transparent;
+	outline:none;
+	color:white;
+	text-align: center;
+	border:3px solid #0095ff;
+	border-radius:20px;
+	font-size: 16px;
+	letter-spacing: 1px;
+
+    /*background: url("../img/chart_1.png") no-repeat center;*/
+}
+
 
 .data_content .data_main .main_left div.left_2{
     /*background: url("../img/chart_2.png") no-repeat center;*/

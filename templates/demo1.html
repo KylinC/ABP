@@ -1,65 +1,219 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
-	<head>
-		<meta charset="utf-8" />
-	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-		<title>ATC Data-Platform</title>
-		<link rel="stylesheet" href="static/css/bootstrap.css" />
-		<link rel="stylesheet" href="static/css/demo1_style.css" />
-        <link rel="stylesheet" href="static/css/demo1_base.css" />
-        <script type="text/javascript" src="static/js/jquery-1.11.2.min.js"></script>
-        <script type="text/javascript" src="static/js/echarts.min.js"></script>
-        <script type="text/javascript" src="static/js/KGdemo.js"></script>
-    </head>
-    <body>
-			<div class="bg_header">
-				<div class="header_nav fl t_title">
-					Data-Platform
-				</div> 
-			</div>
-			<div class="header_nav fl">
-			</div>
-			<div class="header_myself fr t_height">
-				<a class="t_a" href="new1.html"> More &nbsp;</a>
-			</div>
-		</div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data-Platform</title>
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/base.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <script type="text/javascript" src="../static/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/KGdemo.js"></script>
 
-		<div class="wrapper">
-			<div class="container-fluid">
-				<div class="row fill-h">
-					<div class="col-lg-7 fill-h">
-						<div class="xpanel-wrapper xpanel-wrapper-1">
-							<div class="xpanel">
-								<div class="fill-h" id="graph_1"></div>
-							</div>
-						</div>
-					</div>
-					<div id="chart_22" style="width:100%;height:610px;"></div>
-					<div class="col-lg-5 fill-h">
-						<div class="xpanel-wrapper-4-1 xpanel-wrapper-2">
-							<div class="xpanel">
-								<div class="fill-h" id="graph_2">b</div>
-							</div>
-						</div>
-						<div class="xpanel-wrapper-4 xpanel-wrapper-2">
-							<div class="xpanel">
-								<div class="fill-h" id="graph_3">c</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-    <footer id="footer">
-       <div align="center">
-          <input  style="width: 800px;height:40px" class="input" type="text" placeholder="请输入流控报文">
-	      <button type="submit" id="login-button">Enter</button>
-       </div>
-    </footer>
+    <style>
+        .t_title{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 2.5em;
+            line-height: 80px;
+            color: #fff;
+        }
+        #chart_map{
+            cursor: pointer;
+        }
+        .t_show{
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-radius: 2px;
+            background: #2C58A6;
+            padding: 2px 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .right_input{
+            width:300px;
+            height:40px;
+            background:transparent;
+            outline:none;
+            color:white;
+            text-align: center;
+            border:3px solid #0095ff;
+            border-radius:20px;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+        .right_button{
+            width:300px;
+            height:40px;
+            background:transparent;
+            outline:none;
+            color:white;
+            text-align: center;
+            border:3px solid #0095ff;
+            border-radius:20px;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
 
-		
+<!--header-->
+<div class="header">
+    <div class="bg_header">
+        <div class="header_nav fl t_title">
+            Data-Platform
+        </div> 
+    </div>
+</div>
 
-	</body>
+<!--main-->
+<div class="data_content">
+    <div class="data_time">
+        Tips: Click to get more details.      
+    </div>
+
+    <div class="data_main">
+        <div class="main_left fl" >
+            <div class="left_1">
+
+                <div class="main_title">
+                    <img src="static/img/t_1.png" alt="">
+                  Constrain
+                </div>
+                
+                    <div align="center">
+                     </br></br>
+                    </br>
+                          <input class="right_input" type="text" placeholder="请输入流控报文">
+                    </br>
+                    </br>
+						   <button class="right_button" type="submit" id="login-button">Enter</button>
+					</br>
+					</br></br>
+						   <input class="right_input" class="input" type="text" placeholder="CSV文件路径">
+					</br>
+					</br>
+						   <button class="right_button" type="submit" id="login-button">Load</button>
+					</br>
+					</br></br>
+						   <input class="right_input" class="input" type="text" placeholder="请输入Neo4j匹配语句">
+					</br>
+					</br>
+						   <button class="right_button" type="submit" id="login-button">Match</button>
+					</br>
+					</br></br>
+						   <input class="right_input" class="input" type="text" placeholder="请输入Neo4j匹配语句">
+					</br>
+					</br>
+						   <button class="right_button" type="submit" id="login-button">Match</button>
+                    </div>
+
+                
+            </div>
+        </div>
+
+        <div class="main_center fl">
+            <div class="center_text">
+                <!--左上边框-->
+                <div class="t_line_box">
+                    <i class="t_l_line"></i> 
+                    <i class="l_t_line"></i> 
+                </div> 
+                <!--右上边框-->
+                <div class="t_line_box">
+                    <i class="t_r_line"></i> 
+                    <i class="r_t_line"></i> 
+                </div> 
+                <!--左下边框-->
+                <div class="t_line_box">
+                    <i class="l_b_line"></i> 
+                    <i class="b_l_line"></i> 
+                </div> 
+                 <!--右下边框-->
+                 <div class="t_line_box">
+                    <i class="r_b_line"></i> 
+                    <i class="b_r_line"></i> 
+                </div> 
+                <div class="main_title">
+                    <img src="static/img/t_4.png" alt="">
+                    Knowledge
+                </div>
+                <div id="chart_2" style="width:100%;height:610px;"></div>
+            </div>
+        </div>
+        <div class="main_right fr">
+            <div class="right_1">
+                <!--左上边框-->
+                <div class="t_line_box">
+                    <i class="t_l_line"></i> 
+                    <i class="l_t_line"></i> 
+                </div> 
+                <!--右上边框-->
+                <div class="t_line_box">
+                    <i class="t_r_line"></i> 
+                    <i class="r_t_line"></i> 
+                </div> 
+                <!--左下边框-->
+                <div class="t_line_box">
+                    <i class="l_b_line"></i> 
+                    <i class="b_l_line"></i> 
+                </div> 
+                    <!--右下边框-->
+                    <div class="t_line_box">
+                    <i class="r_b_line"></i> 
+                    <i class="b_r_line"></i> 
+                </div> 
+                <div class="main_title">
+                    <img src="static/img/t_3.png" alt="">
+                    Line
+                </div>
+                <div id="chart_3" class="echart t_btn7" style="width:100%;height: 280px;"></div>
+            </div>
+            <div class="right_2">
+                <!--左上边框-->
+                <div class="t_line_box">
+                    <i class="t_l_line"></i> 
+                    <i class="l_t_line"></i> 
+                </div> 
+                <!--右上边框-->
+                <div class="t_line_box">
+                    <i class="t_r_line"></i> 
+                    <i class="r_t_line"></i> 
+                </div> 
+                <!--左下边框-->
+                <div class="t_line_box">
+                    <i class="l_b_line"></i> 
+                    <i class="b_l_line"></i> 
+                </div> 
+                    <!--右下边框-->
+                    <div class="t_line_box">
+                    <i class="r_b_line"></i> 
+                    <i class="b_r_line"></i> 
+                </div> 
+                <div class="main_title">
+                    <img src="static/img/t_1.png" alt="">
+                    Regular
+                </div>
+                <div id="chart_4" class="echart fl t_btn4" style="width:100%;height: 280px;cursor: pointer;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="text-align:center;">
+	<p style="color: white;">Copyright &copy;<script>document.write(new Date().getFullYear());</script>  KylinChen</p>
+</div>
+</body>
+<script src="js/jquery-2.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/dataTool.js"></script>
+<script src="js/index.js"></script>
+<script src="js/china.js"></script>
+<script src="js/sichuan.js"></script>
 </html>

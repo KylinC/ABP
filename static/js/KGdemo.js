@@ -1,8 +1,8 @@
 $(function(){
     function relationshipGraph(graph) {
-        console.log(graph.nodes);
-        console.log(graph.edges);
-        var myChart = echarts.init(document.getElementById('chart_22'));
+        // console.log(graph.nodes);
+        // console.log(graph.edges);
+        var myChart = echarts.init(document.getElementById('chart_1'));
         var categories = [];
         categories[0] = {name: 'Movie'};
         categories[1] = {name: 'Person'};
