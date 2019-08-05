@@ -2,7 +2,7 @@ $(function(){
     function relationshipGraph(graph) {
         // console.log(graph.nodes);
         // console.log(graph.edges);
-        var myChart = echarts.init(document.getElementById('chart_1'));
+        var myChart = echarts.init(document.getElementById('chart_2'));
         var categories = [];
         categories[0] = {name: 'Movie'};
         categories[1] = {name: 'Person'};
