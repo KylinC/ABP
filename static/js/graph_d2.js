@@ -1,6 +1,6 @@
 function relationshipGraph(graph) {
-    // console.log(graph.nodes);
-    // console.log(graph.edges);
+    console.log(graph.nodes);
+    console.log(graph.edges);
     var myChart = echarts.init(document.getElementById('graph_1'));
     var categories = [];
     categories[0] = {name: 'Movie'};
@@ -92,6 +92,7 @@ $.ajax({
     url: 'http://127.0.0.1:5000/demo1/graphdata',
     dataType: "jsonp",  
     success: function (res) {
+        // console.log(res);
         relationshipGraph(res);
     },
     error: function (msg) {
