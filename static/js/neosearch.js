@@ -1,7 +1,7 @@
 function relationshipGraph(graph) {
     // console.log(graph.nodes);
     // console.log(graph.edges);
-    var myChart = echarts.init(document.getElementById('graph_1'));
+    var myChart = echarts.init(document.getElementById('chart_2'));
     var categories = [];
     categories[0] = {name: 'Movie'};
     categories[1] = {name: 'Person'};
@@ -87,15 +87,22 @@ function relationshipGraph(graph) {
     myChart.setOption(option);
 }
 
-$.ajax({
-    type: 'get',
-    url: 'http://127.0.0.1:5000/demo1/graphdata',
-    dataType: "jsonp",  
-    success: function (res) {
-        // console.log(res);
-        relationshipGraph(res);
-    },
-    error: function (msg) {
-        console.log(msg);
-    }
-});
+function NeoSearch(){
+    var tmp_text = $("#neotext").val()
+    console.log(tmp_text)
+
+    $.ajax({
+        type: 'post',
+        url: 'http://127.0.0.1:5000/demo1/neosearch',
+        data: JSON.stringify(tmp_text),
+        dataType: "jsonp",
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+            relationshipGraph(res);
+            //drawPath(res)
+        },
+        error: function (msg) {
+            console.log(msg);
+        }
+    });
+}
