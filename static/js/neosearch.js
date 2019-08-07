@@ -1,6 +1,4 @@
 function relationshipGraph(graph) {
-    // console.log(graph.nodes);
-    // console.log(graph.edges);
     var myChart = echarts.init(document.getElementById('chart_2'));
     var categories = [];
     categories[0] = {name: 'Movie'};
@@ -99,7 +97,6 @@ function NeoSearch(){
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             relationshipGraph(res);
-            //drawPath(res)
         },
         error: function (msg) {
             console.log(msg);

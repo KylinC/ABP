@@ -9,7 +9,7 @@
 
 <img src='https://img.shields.io/badge/neo4j-3.5.7-orange.svg'  align='left' style=' width:100px'/>
 
-<img src='https://img.shields.io/badge/License-MIT-yellow.svg'  align='left' style=' width:100px'/>
+<img src='https://img.shields.io/badge/License-MIT-yellow.svg'  align='left' style=' width:100px'/></br>
 
 ## View
 
