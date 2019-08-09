@@ -1,6 +1,6 @@
 def buildNodes(nodeRecord): #构建web显示节点
     if(len(nodeRecord._labels) != 0):
-        data = {"id": nodeRecord._id, "label": list(nodeRecord._labels)[0]} #将集合元素变为list，然后取出值
+        data = {"id": nodeRecord._id, "label": list(nodeRecord._labels)[0], "symbolSize": 20} #将集合元素变为list，然后取出值
         if(data['label'] == 'Movie'):
             data.update({'category': 1})
         else:

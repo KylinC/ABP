@@ -1,8 +1,17 @@
 function RelationGraph(graph) {
-    var myChart = echarts.init(document.getElementById('chart_4'));
+    var myChart = echarts.init(document.getElementById('chart_4'), 'chalk');
     var categories = [];
-    categories[0] = {name: 'Movie'};
-    categories[1] = {name: 'Person'};
+    categories[0] = {name: 'Massage'};
+    categories[1] = {name: 'Elements'};
+
+    graph.edges.forEach(function (edge) {
+        edge.lineStyle = {
+            width:2,
+            color:"#FFFAFA"
+        };
+        edge.type = 'dashed';
+    });
+    console.log(graph.edges);
     var option = {
         title: {
             text: 'Flow Control',
@@ -37,7 +46,6 @@ function RelationGraph(graph) {
                 saveAsImage: true  // 保存为图片，
             }
         },
-
         legend: [{
             // selectedMode: 'single',
             type: 'scroll',
@@ -89,13 +97,15 @@ function RelationGraph(graph) {
 }
 
 function RouteGraph(graph) {
-    var myChart = echarts.init(document.getElementById('chart_2'));
+    var myChart = echarts.init(document.getElementById('chart_2'), 'chalk');
     var categories = [];
-    categories[0] = {name: 'Movie'};
-    categories[1] = {name: 'Person'};
+    categories[0] = {name: 'Pass'};
+    categories[1] = {name: 'End_to'};
+    categories[2] = {name: 'Start_from'};
+    categories[3] = {name: 'Massage'};
     var option = {
         title: {
-            text: 'Flow Control',
+            text: 'Route Point Relation',
             subtext: 'Default layout',
             top: 'bottom',
             left: 'right',
@@ -127,7 +137,6 @@ function RouteGraph(graph) {
                 saveAsImage: true  // 保存为图片，
             }
         },
-
         legend: [{
             // selectedMode: 'single',
             type: 'scroll',
