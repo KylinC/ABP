@@ -1,8 +1,6 @@
 
-function Graph1(graph) {
-var myChart = echarts.init(document.getElementById('chart_3'));
-
-var geoCoordMap = geoCoordMap = {
+    var myChart = echarts.init(document.getElementById('chart_3'));
+    var geoCoordMap = {
         '上海': [121.4648,31.2891],
         '东莞': [113.8953,22.901],
         '东营': [118.7073,37.5513],
@@ -914,204 +912,196 @@ var geoCoordMap = geoCoordMap = {
 
     };
 
-var BJData = graph;
+    //var Data = graph;
+    var SHData = [];
+    var GZData = [];
+    var Data = [
+    [{name:'北京'}, {name:'上海'}],
+    [{name:'北京'}, {name:'广州'}],
+    [{name:'北京'}, {name:'大连'}],
+    [{name:'北京'}, {name:'南宁'}],
+    [{name:'北京'}, {name:'南昌'}],
+    [{name:'北京'}, {name:'拉萨'}],
+    [{name:'北京'}, {name:'长春'}],
+    [{name:'北京'}, {name:'包头'}],
+    [{name:'北京'}, {name:'重庆'}],
+    [{name:'北京'}, {name:'常州'}]
+   ];
+    var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
 
-var SHData = [
-];
-
-var GZData = [
-];
-
-var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
-
-var convertData = function (data) {
-    console.log(data);
-    var res = [];
-    for (var i = 0; i < data.length; i++) {
-        var dataItem = data[i];
-        var fromCoord = geoCoordMap[dataItem[0].name];
-        var toCoord = geoCoordMap[dataItem[1].name];
-        if (fromCoord && toCoord) {
-            res.push({
-                fromName: dataItem[0].name,
-                toName: dataItem[1].name,
-                coords: [fromCoord, toCoord],
-                value: dataItem[1].value
-            });
-        }
-    }
-    return res;
-};
-
-var color = ['#a6c84c', '#ffa022', '#46bee9'];
-var series = [];
-[['北京/首都机场', BJData], ['上海/浦东机场', SHData], ['广州/白云机场', GZData]].forEach(function (item, i) {
-    //console.log(item,i);
-    series.push({
-        name: item[0] + ' Top10',
-        type: 'lines',
-        zlevel: 1,
-        effect: {
-            show: true,
-            period: 6,
-            trailLength: 0.7,
-            color: '#fff',
-            symbolSize: 3
-        },
-        lineStyle: {
-            normal: {
-                color: color[i],
-                width: 0,
-                curveness: 0.2
-            }
-        },
-        data: convertData(item[1])
-    },
-    {
-        name: item[0] + ' Top10',
-        type: 'lines',
-        zlevel: 2,
-        symbol: ['none', 'arrow'],
-        symbolSize: 10,
-        effect: {
-            show: true,
-            period: 6,
-            trailLength: 0,
-            symbol: planePath,
-            symbolSize: 15
-        },
-        lineStyle: {
-            normal: {
-                color: color[i],
-                width: 1,
-                opacity: 0.6,
-                curveness: 0.2
-            }
-        },
-        data: convertData(item[1])
-    },
-    {
-        name: item[0] + ' Top10',
-        type: 'effectScatter',
-        coordinateSystem: 'geo',
-        zlevel: 2,
-        rippleEffect: {
-            brushType: 'stroke'
-        },
-        label: {
-            normal: {
-                show: true,
-                position: 'right',
-                formatter: '{b}'
-            }
-        },
-        symbolSize: function (val) {
-            return val[2] / 8;
-        },
-        itemStyle: {
-            normal: {
-                color: color[i]
-            }
-        },
-        data: item[1].map(function (dataItem) {
-            return {
-                name: dataItem[1].name,
-                value: geoCoordMap[dataItem[1].name].concat(50)
-            };
-        })
-    },
-    {
-        name: item[0] + ' Top10',
-        type: 'effectScatter',
-        coordinateSystem: 'geo',
-        zlevel: 2,
-        rippleEffect: {
-            brushType: 'stroke'
-        },
-        label: {
-            normal: {
-                show: true,
-                position: 'right',
-                formatter: '{b}'
-            }
-        },
-        symbolSize: function (val) {
-            return val[2] / 8;
-        },
-        itemStyle: {
-            normal: {
-                color: color[i]
-            }
-        },
-        data: item[1].map(function (dataItem) {
-            return {
-                name: dataItem[0].name,
-                value: geoCoordMap[dataItem[0].name].concat(50)
-            };
-        })
-    });
-});
-console.log(series)
-
-option = {
-    // backgroundColor: '#404a59',
-    title : {
-        text: 'ATC',
-        subtext: 'Influence',
-        left: 'center',
-        textStyle : {
-            color: '#fff'
-        }
-    },
-    tooltip : {
-        trigger: 'item',
-        formatter:function(params, ticket, callback){
-            console.log(params);
-            if(params.seriesType=="effectScatter") {
-                return "线路："+params.data.name+""+params.data.value[2];
-            }else if(params.seriesType=="lines"){
-                return params.data.fromName+">"+params.data.toName+"<br />"+params.data.value;
-            }else{
-                return params.name;
+    var convertData = function (data) {
+        console.log(data);
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var dataItem = data[i];
+            var fromCoord = geoCoordMap[dataItem[0].name];
+            var toCoord = geoCoordMap[dataItem[1].name];
+            if (fromCoord && toCoord) {
+                res.push({
+                    fromName: dataItem[0].name,
+                    toName: dataItem[1].name,
+                    coords: [fromCoord, toCoord],
+                    value: dataItem[1].value
+                });
             }
         }
-    },
+        return res;
+    };
 
-    geo: {
-        map: 'china',
-        label: {
-            emphasis: {
+    var color = ['#a6c84c', '#ffa022', '#46bee9'];
+    var series = [];
+    [['北京', Data], ['上海', SHData], ['广州', GZData]].forEach(function (item, i) {
+        //console.log(item,i);
+        series.push({
+            name: item[0] + ' Top10',
+            type: 'lines',
+            zlevel: 1,
+            effect: {
                 show: true,
-                color:'#fff'
-            }
-        },
-        center: [118.114129, 32.550339],
-        zoom: 1.8,
-        roam: true,
-        itemStyle: {
-            normal: {
-                areaColor: '#323c48',
-                borderColor: '#404a59'
+                period: 6,
+                trailLength: 0.7,
+                color: '#fff',
+                symbolSize: 3
             },
-            emphasis: {
-                areaColor: '#2a333d'
-            }
-        }
-    },
-    series: series
-};
+            lineStyle: {
+                normal: {
+                    color: color[i],
+                    width: 0,
+                    curveness: 0.2
+                }
+            },
+            data: convertData(item[1])
+        },
+        {
+            name: item[0] + ' Top10',
+            type: 'lines',
+            zlevel: 2,
+            symbol: ['none', 'arrow'],
+            symbolSize: 10,
+            effect: {
+                show: true,
+                period: 6,
+                trailLength: 0,
+                symbol: planePath,
+                symbolSize: 15
+            },
+            lineStyle: {
+                normal: {
+                    color: color[i],
+                    width: 1,
+                    opacity: 0.6,
+                    curveness: 0.2
+                }
+            },
+            data: convertData(item[1])
+        },
+        {
+            name: item[0] + ' Top10',
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            zlevel: 2,
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'right',
+                    formatter: '{b}'
+                }
+            },
+            symbolSize: function (val) {
+                return val[2] / 8;
+            },
+            itemStyle: {
+                normal: {
+                    color: color[i]
+                }
+            },
+            data: item[1].map(function (dataItem) {
+                return {
 
-myChart.setOption(option);
-}
-$.ajax({
-    type: 'get',
-    url: 'http://127.0.0.1:5000/demo1/mapdata',
-    dataType: "jsonp",
-    success: function (res) {
-        console.log(res)
-        Graph1(res);
-    },
-    error: function (msg) {
-        console.log(msg);
-    }
-});
+                    name: dataItem[1].name,
+                    value: geoCoordMap[dataItem[1].name].concat(50)
+                };
+            })
+        },{
+            name: item[1] + ' Top10',
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            zlevel: 2,
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'right',
+                    formatter: '{b}'
+                }
+            },
+            symbolSize: function (val) {
+                return val[2] / 8;
+            },
+            itemStyle: {
+                normal: {
+                    color: color[i]
+                }
+            },
+            data: item[1].map(function (dataItem) {
+                return {
+                    name: dataItem[0].name,
+                    value: geoCoordMap[dataItem[0].name].concat(30)
+                };
+            })
+        });
+    });
+    console.log(series)
+
+    option =
+        {
+        backgroundColor: '#404a59',
+        title : {
+            text: '模拟迁徙',
+            subtext: '数据纯属虚构',
+            left: 'center',
+            textStyle : {
+                color: '#fff'
+            }
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter:function(params, ticket, callback){
+                console.log(params);
+                if(params.seriesType=="effectScatter") {
+                    return "线路："+params.data.name+""+params.data.value[2];
+                }else if(params.seriesType=="lines"){
+                    return params.data.fromName+">"+params.data.toName+"<br />"+params.data.value;
+                }else{
+                    return params.name;
+                }
+            }
+        },
+        geo: {
+            map: 'china',
+            label: {
+                emphasis: {
+                    show: true,
+                    color:'#fff'
+                }
+            },
+            roam: true,
+            itemStyle: {
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#404a59'
+                },
+                emphasis: {
+                    areaColor: '#2a333d'
+                }
+            }
+        },
+        series: series
+        };
+        myChart.setOption(option);
+

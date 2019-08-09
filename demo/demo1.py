@@ -44,10 +44,19 @@ def get_graph_data():
     callback = request.args.get('callback')
     return Response('{}({})'.format(callback, json_data))
 
+
+
 @mod1.route("/demo1/mapdata")
 def get_map_data():
+    name= [
+        [{'name': '北京'}, {'name': '上海'}],
+        [{'name': '北京'}, {'name': '广州'}],
+        [{'name': '北京'}, {'name': '大连'}],
+        [{'name': '北京'}, {'name': '南宁'}],
+        [{'name': '北京'}, {'name': '南昌'}]
+    ];
+    json_data = json.dumps(name)
     callback = request.args.get('callback')
-    json_data = map_data()
     return Response('{}({})'.format(callback, json_data))
 
 @mod1.route("/demo1/neosearch",methods = ['POST'])

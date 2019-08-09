@@ -12,7 +12,7 @@ function relationshipGraph(graph) {
             top: 'bottom',
             left: 'right'
         },
-        tooltip: {
+        tooltip:
             formatter: function(param){
                 if(param.dataType === 'edge'){
                     return param.data.relationship;
