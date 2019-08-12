@@ -11,6 +11,16 @@
 
 <img src='https://img.shields.io/badge/License-MIT-yellow.svg'  align='left' style=' width:100px'/></br>
 
+## Launch
+
+```bash
+git clone https://github.com/dbgns/package-delivery
+
+cd ATC-BigData-Platform
+
+python server.py
+```
+
 ## View
 
 > ATC System Enter Page
@@ -19,4 +29,4 @@
 
 > Data Visualization
 
-![2](http://kylinhub.oss-cn-shanghai.aliyuncs.com/2019-08-06-1.jpg)
+![2](http://kylinhub.oss-cn-shanghai.aliyuncs.com/2019-08-10-1.jpg)

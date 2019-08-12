@@ -28,7 +28,7 @@ def KGgenerate(aim_statement):
 
 def generate_test():
     inputstr = r'"北京区管","上海","限制上海方向南苑,天津落地出UDINO H104航路 30分钟一架","军事活动","201810171657 ","201810172000 ","201810172200 "'
-    KGgenerate(inputstr)
+    print(KGgenerate(inputstr))
 
 if __name__ == "__main__":
     generate_test()

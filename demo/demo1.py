@@ -46,8 +46,15 @@ def get_graph_data():
 
 @mod1.route("/demo1/mapdata")
 def get_map_data():
+    name= [
+        [{'name': '北京'}, {'name': '上海'}],
+        [{'name': '北京'}, {'name': '广州'}],
+        [{'name': '北京'}, {'name': '大连'}],
+        [{'name': '北京'}, {'name': '南宁'}],
+        [{'name': '北京'}, {'name': '南昌'}]
+    ];
+    json_data = json.dumps(name)
     callback = request.args.get('callback')
-    json_data = map_data()
     return Response('{}({})'.format(callback, json_data))
 
 @mod1.route("/demo1/neosearch",methods = ['POST'])
@@ -117,7 +124,52 @@ def state_analyse():
     result_list.append({"nodes": nodes, "edges": edges})
 
     aim_embed_routepoint="'"+aim_dict["限流点"]+"'"
-    neoorder='MATCH (p1)-[r1]->(p2:RoutePoint{code:%s}) RETURN p1,p2,r1'%(aim_embed_routepoint)
+    neoorder = 'MATCH (p1)-[r1]->(p2:RoutePoint{code:%s}) RETURN p1,p2,r1'%(aim_embed_routepoint)
+
+    with driver.session() as session:
+        results = session.run(neoorder).values()
+        nodeList=[]
+        edgeList=[]
+        for result in results:
+            nodeList.append(result[0])
+            nodeList.append(result[1])
+            nodeList=list(set(nodeList))
+            edgeList.append(result[2])
+        edgeList = list(set(edgeList))
+        nodes = list(map(buildNodesforroute, nodeList))
+        # edges= list(map(buildEdges,edgeList))
+        edges=[]
+        id_tmp=0
+        for edge in edgeList:
+            data = {"id":id_tmp,
+            "source": str(edge.start_node._id),
+            "target":str(edge.end_node._id),
+            "name": str(edge.type)}
+            id_tmp += 1
+            edges.append(data)
+    
+    result_list.append({"nodes": nodes, "edges": edges})
+
+    json_data = json.dumps(result_list)
+    callback = request.args.get('callback')
+    return Response('{}({})'.format(callback, json_data))
+
+@mod1.route("/demo1/csvload",methods = ['POST'])
+def csv_approach():
+    data = request.get_data()
+    data_input = json.loads(data)
+
+    result_list=[]
+    data_length=len(data_input)
+    print(data_length)
+    for data_id in range(1,data_length):
+        data_list_item = data_input[data_id]
+        data_string_item = str(data_list_item)[1:-1]
+        aim_dict = KGgenerate(data_string_item.replace("'","\""))
+        print(data_string_item)
+
+    aim_embed_code="'"+aim_dict["限流点"]+"_"+aim_dict["发布时间"]+"'"
+    neoorder='MATCH (p1:FlowControl{code:%s})-[r1]->(p2) RETURN p1,p2,r1'%(aim_embed_code)
 
     with driver.session() as session:
         results=session.run(neoorder).values()
@@ -131,6 +183,33 @@ def state_analyse():
         
         edgeList=list(set(edgeList))
         nodes = list(map(buildNodes, nodeList))
+        # edges= list(map(buildEdges,edgeList))
+        edges=[]
+        id_tmp=0
+        for edge in edgeList:
+            data = {"id":id_tmp,
+            "source": str(edge.start_node._id),
+            "target":str(edge.end_node._id),
+            "name": str(edge.type)}
+            id_tmp += 1
+            edges.append(data)
+
+    result_list.append({"nodes": nodes, "edges": edges})
+
+    aim_embed_routepoint="'"+aim_dict["限流点"]+"'"
+    neoorder = 'MATCH (p1)-[r1]->(p2:RoutePoint{code:%s}) RETURN p1,p2,r1'%(aim_embed_routepoint)
+
+    with driver.session() as session:
+        results = session.run(neoorder).values()
+        nodeList=[]
+        edgeList=[]
+        for result in results:
+            nodeList.append(result[0])
+            nodeList.append(result[1])
+            nodeList=list(set(nodeList))
+            edgeList.append(result[2])
+        edgeList = list(set(edgeList))
+        nodes = list(map(buildNodesforroute, nodeList))
         # edges= list(map(buildEdges,edgeList))
         edges=[]
         id_tmp=0
