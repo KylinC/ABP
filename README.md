@@ -29,4 +29,7 @@ python server.py
 
 > Data Visualization
 
-![2](http://kylinhub.oss-cn-shanghai.aliyuncs.com/2019-08-12-2019-08-10-1.jpg)
+![2](http://kylinhub.oss-cn-shanghai.aliyuncs.com/2019-08-13-1539.jpg)
+
+ 
+

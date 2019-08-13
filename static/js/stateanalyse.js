@@ -1,8 +1,9 @@
 function RelationGraph(graph) {
     var myChart = echarts.init(document.getElementById('chart_4'),"macarons");
     var categories = [];
-    categories[0] = {name: 'Massage'};
-    categories[1] = {name: 'Elements'};
+    console.log(graph.edges);
+    categories[0] = {name: 'Elements'};
+    categories[1] = {name: 'Massage'};
 
     graph.edges.forEach(function (edge) {
         edge.lineStyle = {
@@ -23,18 +24,10 @@ function RelationGraph(graph) {
         },
         tooltip: {
             formatter: function(param){
-                if(param.dataType === 'edge'){
-                    return param.data.relationship;
-                }
-                else{
-                    if(param.data.name != undefined){
-                        return param.data.name;
-                    }
-                    else{
-                        return param.data.title
-                    }
-                }    
-                
+                return param.data.detail;
+            },
+            textStyle:{
+                fontSize:8
             }
         },
         toolbox: {
@@ -81,14 +74,18 @@ function RelationGraph(graph) {
                 focusNodeAdjacency: true,
                 label: {
                     normal: {
-                        position: 'right',
+                        borderColor:"#fff",
+                        fontSize: 5,
+                        show:true,
                         formatter: function(params){
                             return params.data.name;
                         }
                     }
                 },
                 force: {
-                    repulsion: 100
+                    repulsion: 100,
+                    length: 100,
+                    layoutAnimation:false
                 }
             }
         ]
@@ -143,13 +140,17 @@ function RouteGraph(graph) {
                 }
                 else{
                     if(param.data.name != undefined){
-                        return param.data.name;
+                        return param.data.detail;
                     }
                     else{
-                        return param.data.title
+                        return param.data.detail;
                     }
                 }    
                 
+            },
+            position:"bottom",
+            textStyle:{
+                fontSize:10
             }
         },
         toolbox: {
@@ -168,21 +169,13 @@ function RouteGraph(graph) {
             top: 20,
             bottom: 20,
             textStyle:{color:'#fff'},
+            selected:{
+                'Massage':false
+            },
             data: categories.map(function (a) {
                 return a.name;
             })
         }],
-        label: {//图形上的文本标签，可用于说明图形的一些数据信息
-            normal: {
-                show : true,
-                position: 'right',
-                formatter: function(params){
-                    console.log(params.data.label);
-                    return params.data.label;
-                },
-            }
-
-        },
         animation: true,
         series : [
             {
@@ -199,14 +192,16 @@ function RouteGraph(graph) {
                 focusNodeAdjacency: true,
                 label: {
                     normal: {
-                        position: 'right',
+
+                        show:true,
+
                         formatter: function(params){
                             return params.data.name;
                         }
                     }
                 },
                 force: {
-                    repulsion: 200
+                    repulsion: 100
                 }
             }
         ]

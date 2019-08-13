@@ -117,7 +117,9 @@ def state_analyse():
             data = {"id":id_tmp,
             "source": str(edge.start_node._id),
             "target":str(edge.end_node._id),
-            "name": str(edge.type)}
+            "name": str(edge.type),
+            "detail": str(edge.type)
+            }
             id_tmp += 1
             edges.append(data)
 
