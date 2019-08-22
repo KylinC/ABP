@@ -26,7 +26,7 @@ def py_login():
         txtname = request.args.get('username')
         txtpswd = request.args.get('userpswd')
 
-        if(txtname=="longdb" and txtpswd=="123"):
+        if(txtname=="neo4j" and txtpswd=="123"):
             return "SUCCESS!"  # get可以到这里
             print(url_for('/index1'))
             # return redirect(url_for('/testhtm'))
@@ -43,6 +43,8 @@ from demo import demo1
 app.register_blueprint(demo1.mod1)
 from demo import demo2
 app.register_blueprint(demo2.mod2)
+from demo import demo3
+app.register_blueprint(demo3.mod3)
 
 if __name__ == "__main__":
     app.run(debug = True)

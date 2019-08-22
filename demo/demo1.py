@@ -8,9 +8,12 @@ from data.neo4j_database import database
 from data.data_init import *
 from data.map_database import map_data
 from data.KGexpand import *
+from data.prediction.svm_call import *
 driver = database()
 
 mod1 = Blueprint('demo1', __name__)
+
+scatter_dict = {}
 
 @mod1.route("/demo1")
 def home1():
@@ -96,13 +99,16 @@ def state_analyse():
     result_list=[]
     aim_dict = KGgenerate(str_input)
     aim_embed_code="'"+aim_dict["限流点"]+"_"+aim_dict["发布时间"]+"'"
-    neoorder='MATCH (p1:FlowControl{code:%s})-[r1]->(p2) RETURN p1,p2,r1'%(aim_embed_code)
+    neoorder='MATCH (p1:FlowControl{code:%s})-[r1]->(p2) RETURN p1,p2,r1' % (aim_embed_code)
 
     with driver.session() as session:
         results=session.run(neoorder).values()
         nodeList=[]
         edgeList=[]
         for result in results:
+            tmp_dict = (result[1]._properties)
+            if(tmp_dict["name"] == 'null'):
+                continue
             nodeList.append(result[0])
             nodeList.append(result[1])
             nodeList=list(set(nodeList))
@@ -110,6 +116,8 @@ def state_analyse():
         
         edgeList=list(set(edgeList))
         nodes = list(map(buildNodes, nodeList))
+
+        # print(nodes)
         # edges= list(map(buildEdges,edgeList))
         edges=[]
         id_tmp=0
@@ -117,7 +125,9 @@ def state_analyse():
             data = {"id":id_tmp,
             "source": str(edge.start_node._id),
             "target":str(edge.end_node._id),
-            "name": str(edge.type)}
+            "name": str(edge.type),
+            "detail": str(edge.type)
+            }
             id_tmp += 1
             edges.append(data)
 
@@ -128,15 +138,22 @@ def state_analyse():
 
     with driver.session() as session:
         results = session.run(neoorder).values()
+
+        scatter_dict.update({"results": results})
+
         nodeList=[]
         edgeList=[]
         for result in results:
             nodeList.append(result[0])
             nodeList.append(result[1])
-            nodeList=list(set(nodeList))
+            nodeList = list(set(nodeList))
             edgeList.append(result[2])
         edgeList = list(set(edgeList))
-        nodes = list(map(buildNodesforroute, nodeList))
+        cata = {}
+        nodes = []
+        for node in nodeList:
+            tmp_node, cata = buildweathernodes_test(node, cata)
+            nodes.append(tmp_node)
         # edges= list(map(buildEdges,edgeList))
         edges=[]
         id_tmp=0
@@ -147,8 +164,17 @@ def state_analyse():
             "name": str(edge.type)}
             id_tmp += 1
             edges.append(data)
-    
-    result_list.append({"nodes": nodes, "edges": edges})
+
+
+    result_list.append({"nodes": nodes, "edges": edges, "catas": list(cata.keys())})
+
+    prediction_list = get_info(aim_dict["限流点"])
+    # print(prediction_list)
+    name = []
+    for item in prediction_list:
+        name.append([{'name': item[0]}, {'name': item[1]}])
+
+    result_list.append(name)
 
     json_data = json.dumps(result_list)
     callback = request.args.get('callback')
@@ -161,7 +187,6 @@ def csv_approach():
 
     result_list=[]
     data_length=len(data_input)
-    print(data_length)
     for data_id in range(1,data_length):
         data_list_item = data_input[data_id]
         data_string_item = str(data_list_item)[1:-1]
@@ -172,10 +197,13 @@ def csv_approach():
     neoorder='MATCH (p1:FlowControl{code:%s})-[r1]->(p2) RETURN p1,p2,r1'%(aim_embed_code)
 
     with driver.session() as session:
-        results=session.run(neoorder).values()
+        results = session.run(neoorder).values()
         nodeList=[]
         edgeList=[]
         for result in results:
+            tmp_dict = (result[1]._properties)
+            if (tmp_dict["name"] == 'null'):
+                continue
             nodeList.append(result[0])
             nodeList.append(result[1])
             nodeList=list(set(nodeList))
@@ -201,6 +229,9 @@ def csv_approach():
 
     with driver.session() as session:
         results = session.run(neoorder).values()
+
+        scatter_dict.update({"results": results})
+
         nodeList=[]
         edgeList=[]
         for result in results:
@@ -209,8 +240,11 @@ def csv_approach():
             nodeList=list(set(nodeList))
             edgeList.append(result[2])
         edgeList = list(set(edgeList))
-        nodes = list(map(buildNodesforroute, nodeList))
-        # edges= list(map(buildEdges,edgeList))
+        cata = {}
+        nodes = []
+        for node in nodeList:
+            tmp_node, cata = buildweathernodes_test(node, cata)
+            nodes.append(tmp_node)
         edges=[]
         id_tmp=0
         for edge in edgeList:
@@ -221,7 +255,93 @@ def csv_approach():
             id_tmp += 1
             edges.append(data)
     
-    result_list.append({"nodes": nodes, "edges": edges})
+    result_list.append({"nodes": nodes, "edges": edges, "catas": list(cata.keys())})
+
+    prediction_list = get_info(aim_dict["限流点"])
+    # print(prediction_list)
+    name = []
+    for item in prediction_list:
+        name.append([{'name': item[0]}, {'name': item[1]}])
+    # print(name)
+    # name = [
+    #     [{'name': '北京'}, {'name': '上海'}],
+    #     [{'name': '北京'}, {'name': '广州'}],
+    #     [{'name': '北京'}, {'name': '大连'}],
+    #     [{'name': '北京'}, {'name': '南宁'}],
+    #     [{'name': '北京'}, {'name': '南昌'}]
+    # ];
+
+    result_list.append(name)
+
+    json_data = json.dumps(result_list)
+    callback = request.args.get('callback')
+    return Response('{}({})'.format(callback, json_data))
+
+@mod1.route("/demo1/click",methods = ['POST'])
+def graph_click():
+    data = request.get_data()
+    data_input = json.loads(data)
+    # print(data_input[1])
+    click_point_data = data_input[0]
+
+    # print(click_point_data)
+    aim_name = "'" + click_point_data["name"] + "'"
+    neoorder1 = 'MATCH (p1)-[r1]->(p2:%s{name:%s}) RETURN p1,p2,r1' % (click_point_data["label"], aim_name)
+    neoorder2 = 'MATCH (p1:%s{name:%s})-[r1]->(p2) RETURN p1,p2,r1' % (click_point_data["label"], aim_name)
+
+    nodeList = []
+    edgeList = []
+    with driver.session() as session:
+        old_results = scatter_dict["results"]
+        results1 = session.run(neoorder1).values()
+        results2 = session.run(neoorder2).values()
+        results = results1 + results2 + old_results
+        scatter_dict.update({"results": results})
+        for result in results:
+            nodeList.append(result[0])
+            nodeList.append(result[1])
+            nodeList = list(set(nodeList))
+            edgeList.append(result[2])
+            edgeList = list(set(edgeList))
+
+        tmp_nodeList = []
+        tmp_nodeId = []
+        tmp_edgeList = []
+        tmp_edegId = []
+
+        for item in nodeList:
+            if item._id in tmp_nodeId:
+                continue
+            else:
+                tmp_nodeList.append(item)
+                tmp_nodeId.append(item._id)
+        nodeList = tmp_nodeList
+
+        for item in edgeList:
+            if item._id in tmp_edegId:
+                continue
+            else:
+                tmp_edgeList.append(item)
+                tmp_edegId.append(item._id)
+        edgeList = tmp_edgeList
+
+        cata = {}
+        nodes = []
+        for node in nodeList:
+            tmp_node, cata = buildweathernodes_test(node, cata)
+            nodes.append(tmp_node)
+        edges = []
+        id_tmp = 0
+        for edge in edgeList:
+            data = {"id": id_tmp,
+                    "source": str(edge.start_node._id),
+                    "target": str(edge.end_node._id),
+                    "name": str(edge.type)}
+            id_tmp += 1
+            edges.append(data)
+    result_list = []
+
+    result_list.append({"nodes": nodes, "edges": edges, "catas": list(cata.keys())})
 
     json_data = json.dumps(result_list)
     callback = request.args.get('callback')

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data-Platform</title>
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/base.css">
+    <link rel="stylesheet" href="static/css/index.css">
+
+    <style>
+        .t_title{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 2.5em;
+            line-height: 80px;
+            color: #fff;
+        }
+        #chart_map{
+            cursor: pointer;
+        }
+        .t_show{
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-radius: 2px;
+            background: #2C58A6;
+            padding: 2px 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .right_input{
+            width:300px;
+            height:40px;
+            background:transparent;
+            outline:none;
+            color:white;
+            text-align: center;
+            border:3px solid #0095ff;
+            border-radius:20px;
+            font-size: 5px;
+            letter-spacing: 1px;
+        }
+        .right_text{
+            width:300px;
+            height:200px;
+            background:transparent;
+            outline:none;
+            color:white;
+            text-align: center;
+            border:3px solid #0095ff;
+            border-radius:20px;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+        .right_button{
+            width:300px;
+            height:40px;
+            background:transparent;
+            outline:none;
+            color:white;
+            text-align: center;
+            border:3px solid #0095ff;
+            border-radius:20px;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<!--header-->
+<div class="header">
+    <div class="bg_header">
+        <div class="header_nav fl t_title">
+            Data-Platform
+        </div>
+    </div>
+</div>
+
+<!--main-->
+<div class="data_content">
+    <div class="data_time">
+        Tips: Click to get more details.
+    </div>
+
+    <div class="data_main">
+        <div class="main_left fl" >
+            <div class="left_1">
+
+                <div class="main_title">
+                    <img src="static/img/t_1.png" alt="">
+                  Constrain
+                </div>
+
+                    <div align="center">
+                     </br></br>
+                    </br>
+                          <input class="right_input" id='sstext' class="input" type="text" placeholder="请输入搜索内容">
+                    </br>
+                    </br>
+						   <button class="right_button" type="submit" onclick='Search()'>Enter</button>
+					</br>
+					</br></br>
+					</br>
+					</br>
+
+					</br>
+					</br></br>
+                        <textarea disabled class="right_text" > &#10&#10输入格式如下:&#10搜索类别:具体名字 &#10&#10举例:&#10Airport:ZUUU
+                        </textarea>
+					</br>
+					</br>
+
+					</br>
+					</br></br>
+					</br>
+					</br>
+                    </div>
+
+
+            </div>
+        </div>
+
+        <div class="main_center2 fl">
+            <div class="center_text">
+                <!--左上边框-->
+                <div class="t_line_box">
+                    <i class="t_l_line"></i>
+                    <i class="l_t_line"></i>
+                </div>
+                <!--右上边框-->
+                <div class="t_line_box">
+                    <i class="t_r_line"></i>
+                    <i class="r_t_line"></i>
+                </div>
+                <!--左下边框-->
+                <div class="t_line_box">
+                    <i class="l_b_line"></i>
+                    <i class="b_l_line"></i>
+                </div>
+                 <!--右下边框-->
+                 <div class="t_line_box">
+                    <i class="r_b_line"></i>
+                    <i class="b_r_line"></i>
+                </div>
+                <div class="main_title">
+                    <img src="static/img/t_4.png" alt="">
+                    Knowledge
+                </div>
+                <div id="chart_2" style="width:100%;height:610px;"></div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+<div style="text-align:center;">
+	<p style="color: white;">Copyright &copy;<script>document.write(new Date().getFullYear());</script>  KylinChen</p>
+</div>
+</body>
+<script type="text/javascript" src="static/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="static/js/echarts.min.js"></script>
+<script type="text/javascript" src="static/theme/macarons.js"></script>
+<script type="text/javascript" src='static/js/neosearch1.js'></script>
+<script type="text/javascript" src='static/js/Search.js'></script>
+
+</html>

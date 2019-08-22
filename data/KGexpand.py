@@ -20,6 +20,8 @@ def KGgenerate(aim_statement):
         session.run(relation_state1)
         session.run(relation_state2)
         for relation in aim_dict_list:
+            if(relation == "备注"):
+                continue
             embed_state = aim_dict[relation]
             embed_state = "'"+embed_state+"'"
             state="match (n:FlowControl{content:%s}) merge (n)-[r:%s]->(b:Element{name:%s})"%(aim_embed_state,relation,embed_state)
@@ -27,7 +29,7 @@ def KGgenerate(aim_statement):
     return aim_dict
 
 def generate_test():
-    inputstr = r'"北京区管","上海","限制上海方向南苑,天津落地出UDINO H104航路 30分钟一架","军事活动","201810171657 ","201810172000 ","201810172200 "'
+    inputstr = r'0'
     print(KGgenerate(inputstr))
 
 if __name__ == "__main__":

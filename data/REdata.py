@@ -319,15 +319,15 @@ def str2time(str):
     return timeresult
 
 
-def retrieve_flowcontrol(inputstr):
+def retrieve_flowcontrol(sstring):
     command = []
-    a = inputstr.split('",')
+    a = sstring.split('",')
     for i in range(len(a)):
         a[i] = a[i].replace('"', '')
     command.append(a)
     command = command[0]
     # print(command[2])
-    sstring = "限制上海方向南苑,天津落地出UDINO H104航路 30分钟一架"
+    #sstring = "限制上海方向南苑,天津落地出UDINO H104航路 30分钟一架"
     result = {}
     result["发出区域"] = command[0]
     result["接收区域"] = command[1]
@@ -382,7 +382,7 @@ def addFlowControlToKG(inputstr):
 
 def file_test():
     # str2time("201810172200")
-    inputstr = r'"北京区管","上海","限制上海方向南苑,天津落地出UDINO H104航路 30分钟一架","军事活动","201810171657 ","201810172000 ","201810172200 "'
+    inputstr = r'"北京区管","西安","限制西安方向青岛落地出P24 30分钟一架(备注：转济南)","军事活动","201812072003 ","201812180950 ","201812181940 "'
     result = addFlowControlToKG(inputstr)
     print(result)
 

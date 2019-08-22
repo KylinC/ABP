@@ -8,7 +8,6 @@
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="static/css/base.css">
     <link rel="stylesheet" href="static/css/index.css">
-
     <style>
         .t_title{
             width: 100%;
@@ -40,7 +39,7 @@
             text-align: center;
             border:3px solid #0095ff;
             border-radius:20px;
-            font-size: 5px;
+            font-size: 3px;
             letter-spacing: 1px;
         }
         .right_button{
@@ -85,32 +84,27 @@
 
                     <div align="center">
                      </br></br>
-                    </br>
+                        </br></br>
+                        </br></br>
                           <input class="right_input" id='statetext' class="input" type="text" placeholder="请输入气象报文">
+                    </br></br></br>
+                          <input class="right_input" id='codetext' class="input" type="text" placeholder="请输入机场信息">
+
+                        </br>
                     </br>
+                        </br>
                     </br>
-						   <button class="right_button" type="submit" onclick='StateAnalyse()'>Enter</button>
-					</br>
+                        </br>
+                    </br>
+						   <button class="right_button" type="submit" onclick='WeatherAnalyse()'>Enter</button>
+					</br></br></br>
+                        <button class="right_button" type="submit" onclick='ClearAll()'>Clear</button>
 					</br></br>
-						   <input class="right_input" class="input" type="text" placeholder="CSV文件路径">
-					</br>
-					</br>
-						   <button class="right_button" type="submit" id="login-button">Load</button>
-					</br>
+                        </br></br>
+
 					</br></br>
-						   <input class="right_input" id='neotext' class="input" type="text" placeholder="请输入Neo4j匹配语句">
-					</br>
-					</br>
-						   <button class="right_button" type="submit" onclick='NeoSearch()'>Match</button>
-					</br>
 					</br></br>
-						   <input class="right_input" class="input" type="text" placeholder="None">
-					</br>
-					</br>
-						   <button class="right_button" type="submit" id="login-button">None</button>
                     </div>
-
-
             </div>
         </div>
 
@@ -153,8 +147,10 @@
 </body>
 <script type="text/javascript" src="static/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="static/js/echarts.min.js"></script>
-<script type="text/javascript" src="static/js/china.js"></script>
-<script type="text/javascript" src="static/js/stateanalyse.js"></script>
-<script type="text/javascript" src='static/js/neosearch.js'></script>
-<script type="text/javascript" src="static/js/map_d1.js"></script>
+<script type="text/javascript" src="static/js/papaparse.js"></script>
+<script type="text/javascript" src="static/theme/macarons.js"></script>
+<script type="text/javascript" src="static/js/jschardet.js"></script>
+<!--package we write-->
+<script type="text/javascript" src="static/js/csv2arr.js"></script>
+<script type="text/javascript" src="static/js/weatherlyse.js"></script>
 </html>
