@@ -10,11 +10,6 @@
 
 [TOC]
 
-## Developer
-
-陈麒麟 (SJTU, k1017856853@icloud.com, https://github.com/KylinC)
-
-王春晖 (SJTU, 554714511@qq.com, https://github.com/wangchunhala)
 
 
 
